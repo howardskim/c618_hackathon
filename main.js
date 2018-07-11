@@ -25,9 +25,7 @@ function upLeft() {
     $(destination).addClass("red");
    } else {
      $(destination).addClass("black");  
-   }
-  
-    
+   }    
 }
 
 function upRight(rowInitial, columnInitial) {
@@ -146,24 +144,28 @@ function jumpDownRight(posX, posY){
 }
 
 function buildGameBoard() {
-    var j = 0
+    var j = 0;
+    // this is the comment
+    //another comment
     var boardGameArray =                            
      [
-      ["", "", "", "", "", "", "", "", ],
-      ["", "", "", "", "", "", "", "", ],
-      ["", "", "", "", "", "", "", "", ],
-      ["", "", "", "", "", "", "", "", ],  
-      ["", "", "", "", "", "", "", "", ],  
-      ["", "", "", "", "", "", "", "", ],  
-      ["", "", "", "", "", "", "", "", ],  
-      ["", "", "", "", "", "", "", "", ],  
+
+      ["", "", "", "", "", "", "", "" ],
+      ["", "", "", "", "", "", "", "" ],
+      ["", "", "", "", "", "", "", "" ],
+      ["", "", "", "", "", "", "", "" ],  
+      ["", "", "", "", "", "", "", "" ],  
+      ["", "", "", "", "", "", "", "" ],  
+      ["", "", "", "", "", "", "", "" ],  
+      ["", "", "", "", "", "", "", "" ],  
+
     ];
 
     var gameBoard = $('#game-board');
     for (var i = 0; i < boardSize.rows; i++) {
         var row = $('<div>', {
             class: 'row'
-        })
+        });
         for (var k = 0; k < boardSize.squares; k++) {
             var column = $('<div>', {
                 class: 'square'
