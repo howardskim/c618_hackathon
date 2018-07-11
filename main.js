@@ -29,7 +29,12 @@ function upLeft() {
     
 }
 
-function upRight(rowInitial, columnInitial) {
+function upRight() {
+    
+    var rowInitial = $(this).attr("row")
+    var columnInitial = $(this).attr("column")
+
+
     var rowFinal = rowInitial - 1;
     var columnFinal = columnInitial + 1;
     $(this).removeClass("red").removeClass("black");
@@ -42,7 +47,10 @@ function upRight(rowInitial, columnInitial) {
    }
 }
 
-function downLeft(rowInitial, columnInitial) {
+function downLeft() {
+    var rowInitial = $(this).attr("row")
+    var columnInitial = $(this).attr("column")
+
     var rowFinal = rowInitial + 1;
     var columnFinal = columnInitial -1;
     $(this).removeClass("red").removeClass("black");
@@ -55,7 +63,10 @@ function downLeft(rowInitial, columnInitial) {
     }
 }
 
-function downRight(rowInitial, columnInitial) {
+function downRight() {
+    var rowInitial = $(this).attr("row")
+    var columnInitial = $(this).attr("column")
+    
     var rowFinal = rowInitial + 1;
     var columnFinal = columnInitial -1;
     $(this).removeClass("red").removeClass("black");
