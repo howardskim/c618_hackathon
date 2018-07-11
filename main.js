@@ -1,12 +1,3 @@
-
-// function movement(row, column) {
-//     if ()
-
-// }
-
-//get the value of row attribute and column attribute, respectively.
-
-
 function upLeft() {
 
 
@@ -19,14 +10,14 @@ function upLeft() {
     //removes red or black chip from initial position
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-   var destination = `[row=${rowFinal}][column=${columnFinal}]`
-   if (turn%2 === 0) {
-    $(destination).addClass("red");
-   } else {
-     $(destination).addClass("black");  
-   }
-  
-    
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
+    } else {
+        $(destination).addClass("black");
+    }
+
+
 }
 
 function upRight(rowInitial, columnInitial) {
@@ -35,111 +26,111 @@ function upRight(rowInitial, columnInitial) {
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
-   if (turn%2 === 0) {
-    $(destination).addClass("red");
-   } else {
-     $(destination).addClass("black");  
-   }
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
+    } else {
+        $(destination).addClass("black");
+    }
 }
 
 function downLeft(rowInitial, columnInitial) {
     var rowFinal = rowInitial + 1;
-    var columnFinal = columnInitial -1;
+    var columnFinal = columnInitial - 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
-    if (turn%2 === 0) {
-     $(destination).addClass("red");
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
     } else {
-      $(destination).addClass("black");  
+        $(destination).addClass("black");
     }
 }
 
 function downRight(rowInitial, columnInitial) {
     var rowFinal = rowInitial + 1;
-    var columnFinal = columnInitial -1;
+    var columnFinal = columnInitial - 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
-    if (turn%2 === 0) {
-     $(destination).addClass("red");
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
     } else {
-      $(destination).addClass("black");  
+        $(destination).addClass("black");
     }
-
-function jumpUpLeft(posX, posY){
-    var user;
-    var enemy;
- 
-    if(gamePiecePos.hasClass("red")){
-        return;
-    }else if(gamePiecePos.hasClass("black")){
-        return;
-    }
-    if(user.hasClass("red")){
-        enemy.removeClass("black");
-        gamePiecePos[posX - 2][posY - 2];
-    }else return;
-    if(user.hasClass("black")){
-        enemy.removeClass("red");
-        gamePiecePos[posX - 2][posY - 2];
-    }else return;
 }
+    function jumpUpLeft(posX, posY) {
+        var user;
+        var enemy;
 
-function jumpUpRight(posX, posY){
-    var user;
-    var enemy;
- 
-    if(gamePiecePos.hasClass("red")){
-        return;
-    }else if(gamePiecePos.hasClass("black")){
-        return;
+        if (gamePiecePos.hasClass("red")) {
+            return;
+        } else if (gamePiecePos.hasClass("black")) {
+            return;
+        }
+        if (user.hasClass("red")) {
+            enemy.removeClass("black");
+            gamePiecePos[posX - 2][posY - 2];
+        } else return;
+        if (user.hasClass("black")) {
+            enemy.removeClass("red");
+            gamePiecePos[posX - 2][posY - 2];
+        } else return;
     }
-    if(user.hasClass("red")){
-        enemy.removeClass("black");
-        gamePiecePos[posX - 2][posY + 2];
-    }else return;
-    if(user.hasClass("black")){
-        enemy.removeClass("red");
-        gamePiecePos[posX - 2][posY + 2];
-    }else return;
-}
 
-function jumpDownLeft(posX, posY){
-    var user;
-    var enemy;
- 
-    if(gamePiecePos.hasClass("red")){
-        return;
-    }else if(gamePiecePos.hasClass("black")){
-        return;
+    function jumpUpRight(posX, posY) {
+        var user;
+        var enemy;
+
+        if (gamePiecePos.hasClass("red")) {
+            return;
+        } else if (gamePiecePos.hasClass("black")) {
+            return;
+        }
+        if (user.hasClass("red")) {
+            enemy.removeClass("black");
+            gamePiecePos[posX - 2][posY + 2];
+        } else return;
+        if (user.hasClass("black")) {
+            enemy.removeClass("red");
+            gamePiecePos[posX - 2][posY + 2];
+        } else return;
     }
-    if(user.hasClass("red")){
-        enemy.removeClass("black");
-        gamePiecePos[posX + 2][posY - 2];
-    }else return;
-    if(user.hasClass("black")){
-        enemy.removeClass("red");
-        gamePiecePos[posX + 2][posY - 2];
-    }else return;
-}
 
-function jumpDownRight(posX, posY){
-    var user;
-    var enemy;
- 
-    if(gamePiecePos.hasClass("red")){
-        return;
-    }else if(gamePiecePos.hasClass("black")){
-        return;
+    function jumpDownLeft(posX, posY) {
+        var user;
+        var enemy;
+
+        if (gamePiecePos.hasClass("red")) {
+            return;
+        } else if (gamePiecePos.hasClass("black")) {
+            return;
+        }
+        if (user.hasClass("red")) {
+            enemy.removeClass("black");
+            gamePiecePos[posX + 2][posY - 2];
+        } else return;
+        if (user.hasClass("black")) {
+            enemy.removeClass("red");
+            gamePiecePos[posX + 2][posY - 2];
+        } else return;
     }
-    if(user.hasClass("red")){
-        enemy.removeClass("black");
-        gamePiecePos[posX + 2][posY + 2];
-    }else return;
-    if(user.hasClass("black")){
-        enemy.removeClass("red");
-        gamePiecePos[posX + 2][posY + 2];
-    }else return;
 
-}
+    function jumpDownRight(posX, posY) {
+        var user;
+        var enemy;
+
+        if (gamePiecePos.hasClass("red")) {
+            return;
+        } else if (gamePiecePos.hasClass("black")) {
+            return;
+        }
+        if (user.hasClass("red")) {
+            enemy.removeClass("black");
+            gamePiecePos[posX + 2][posY + 2];
+        } else return;
+        if (user.hasClass("black")) {
+            enemy.removeClass("red");
+            gamePiecePos[posX + 2][posY + 2];
+        } else return;
+
+    }
