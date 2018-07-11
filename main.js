@@ -117,76 +117,65 @@ function downRight(rowInitial, columnInitial) {
     }
 }
 
+    function jumpUpLeft(row, column) {
+        var rowFinal = row - 2;
+        var columnFinal = column - 2;
+        //removes red or black chip from initial position
+        $(this).removeClass("red").removeClass("black");
+        //adds red or black chip to final position  
+    
+        var destination = `[row=${rowFinal}][column=${columnFinal}]`
+        if (turn % 2 === 0) {
+            $(destination).addClass("red");
+        } else {
+            $(destination).addClass("black");
+        }
+    }
+
+    function jumpUpRight(row, column) {
+        var rowFinal = row - 2;
+        var columnFinal = column + 2;
+        //removes red or black chip from initial position
+        $(this).removeClass("red").removeClass("black");
+        //adds red or black chip to final position  
+
+        var destination = `[row=${rowFinal}][column=${columnFinal}]`
+        if (turn % 2 === 0) {
+            $(destination).addClass("red");
+        } else {
+            $(destination).addClass("black");
+        }
 
     }
-    if (user.hasClass("red")) {
-        enemy.removeClass("black");
-        gamePiecePos[posX - 2][posY - 2];
-    } else return;
-    if (user.hasClass("black")) {
-        enemy.removeClass("red");
-        gamePiecePos[posX - 2][posY - 2];
-    } else return;
-}
 
-function jumpUpRight(posX, posY) {
-    var user;
-    var enemy;
-
-    if (gamePiecePos.hasClass("red")) {
-        return;
-    } else if (gamePiecePos.hasClass("black")) {
-        return;
+    function jumpDownLeft(row, column) {
+        var rowFinal = row + 2;
+        var columnFinal = column - 2;
+        //removes red or black chip from initial position
+        $(this).removeClass("red").removeClass("black");
+        //adds red or black chip to final position  
+    
+        var destination = `[row=${rowFinal}][column=${columnFinal}]`
+        if (turn % 2 === 0) {
+            $(destination).addClass("red");
+        } else {
+            $(destination).addClass("black");
+        }
     }
-    if (user.hasClass("red")) {
-        enemy.removeClass("black");
-        gamePiecePos[posX - 2][posY + 2];
-    } else return;
-    if (user.hasClass("black")) {
-        enemy.removeClass("red");
-        gamePiecePos[posX - 2][posY + 2];
-    } else return;
-}
 
-function jumpDownLeft(posX, posY) {
-    var user;
-    var enemy;
+    function jumpDownRight(row, column) {
+        var rowFinal = row + 2;
+        var columnFinal = column + 2;
+        //removes red or black chip from initial position
+        $(this).removeClass("red").removeClass("black");
+        //adds red or black chip to final position  
 
-    if (gamePiecePos.hasClass("red")) {
-        return;
-    } else if (gamePiecePos.hasClass("black")) {
-        return;
-    }
-    if (user.hasClass("red")) {
-        enemy.removeClass("black");
-        gamePiecePos[posX + 2][posY - 2];
-    } else return;
-    if (user.hasClass("black")) {
-        enemy.removeClass("red");
-        gamePiecePos[posX + 2][posY - 2];
-    } else return;
-}
-
-function jumpDownRight(posX, posY) {
-    var user;
-    var enemy;
-
-    if (gamePiecePos.hasClass("red")) {
-        return;
-    } else if (gamePiecePos.hasClass("black")) {
-        return;
-
-    }
-    if (user.hasClass("red")) {
-        enemy.removeClass("black");
-        gamePiecePos[posX + 2][posY + 2];
-    } else return;
-    if (user.hasClass("black")) {
-        enemy.removeClass("red");
-        gamePiecePos[posX + 2][posY + 2];
-    } else return;
-
-}
+        var destination = `[row=${rowFinal}][column=${columnFinal}]`
+        if (turn % 2 === 0) {
+            $(destination).addClass("red");
+        } else {
+            $(destination).addClass("black");
+        }
 
 function buildGameBoard(array) {
     var alternator = 0;
@@ -217,7 +206,7 @@ function buildGameBoard(array) {
             } else if (columnIndex % 2 !== 0 && alternator === 1) {
                 columnDiv.addClass('red')
             };
-
+          
             if (boardGameArray[rowIndex][columnIndex] === 'B'){
                 columnDiv.addClass('zombie')
             } else if (boardGameArray[rowIndex][columnIndex] === 'R'){
@@ -228,5 +217,6 @@ function buildGameBoard(array) {
         }
             alternator = 1 - alternator;
     }   
+
 }
 
