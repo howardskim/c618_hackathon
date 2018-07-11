@@ -1,4 +1,4 @@
-function jumpUpLeft(gamePiecePos, posX, posY){
+function jumpUpLeft(posX, posY){
     var user;
     var enemy;
  
@@ -17,7 +17,7 @@ function jumpUpLeft(gamePiecePos, posX, posY){
     }else return;
 }
 
-function jumpUpRight(gamePiecePos, posX, posY){
+function jumpUpRight(posX, posY){
     var user;
     var enemy;
  
@@ -36,7 +36,7 @@ function jumpUpRight(gamePiecePos, posX, posY){
     }else return;
 }
 
-function jumpDownLeft(gamePiecePos, posX, posY){
+function jumpDownLeft(posX, posY){
     var user;
     var enemy;
  
@@ -55,7 +55,7 @@ function jumpDownLeft(gamePiecePos, posX, posY){
     }else return;
 }
 
-function jumpDownRight(gamePiecePos, posX, posY){
+function jumpDownRight(posX, posY){
     var user;
     var enemy;
  
