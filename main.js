@@ -66,6 +66,7 @@ function downRight(rowInitial, columnInitial) {
     } else {
       $(destination).addClass("black");  
     }
+}
 
 function jumpUpLeft(posX, posY){
     var user;
