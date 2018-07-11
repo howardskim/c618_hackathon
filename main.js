@@ -26,30 +26,22 @@ function applyClickHandlers() {
     $('.highlight').on('click', )
 }
 
-
-function upLeft() {
-    var rowInitial = $(this).attr("row")
-    var columnInitial = $(this).attr("column")
-
-
 function highLight() {
     var rowInitial = $(this).attr("row")
     var columnInitial = $(this).attr("column")
 
     if (turn % 2 === 0 && $(this).hasClass("plant")) {
-        upLeft(rowInitial, columnInitial); 
+        upLeft(rowInitial, columnInitial);
         upRight(rowInitial, columnInitial);
-    } else if (turn % 2 === 1 && $(this).hasClass("zombie")){
+    } else if (turn % 2 === 1 && $(this).hasClass("zombie")) {
         downLeft(rowInitial, columnInitial);
-        downRight(rowInitial, columnInitial); 
+        downRight(rowInitial, columnInitial);
     }
-
-
 }
 
-
-
-
+function upLeft() {
+    var rowInitial = $(this).attr("row")
+    var columnInitial = $(this).attr("column")
     var rowFinal = rowInitial - 1;
     var columnFinal = columnInitial - 1;
     //removes red or black chip from initial position
@@ -176,6 +168,7 @@ function downRight(rowInitial, columnInitial) {
         } else {
             $(destination).addClass("black");
         }
+}
 
 function buildGameBoard(array) {
     var alternator = 0;
