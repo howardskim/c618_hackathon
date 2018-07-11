@@ -66,7 +66,7 @@ function downLeft() {
 function downRight() {
     var rowInitial = $(this).attr("row")
     var columnInitial = $(this).attr("column")
-    
+
     var rowFinal = rowInitial + 1;
     var columnFinal = columnInitial -1;
     $(this).removeClass("red").removeClass("black");
@@ -77,7 +77,7 @@ function downRight() {
     } else {
       $(destination).addClass("black");  
     }
-
+}
 function jumpUpLeft(posX, posY){
     var user;
     var enemy;
