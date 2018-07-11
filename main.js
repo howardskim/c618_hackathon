@@ -6,11 +6,11 @@
 //get the value of row attribute and column attribute, respectively.
 
 
-function upLeft(rowInitial, columnInitial) {
+function upLeft() {
 
 
-var rowInitial = $(this).attr("row")
-var columnInitial = $(this).attr("column")
+    var rowInitial = $(this).attr("row")
+    var columnInitial = $(this).attr("column")
 
 
     var rowFinal = rowInitial - 1;
@@ -18,7 +18,7 @@ var columnInitial = $(this).attr("column")
     //removes red or black chip from initial position
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-   var destination = "[row=rowFinal][column=columnFinal]"
+   var destination = `[row=${rowFinal}][column=${columnFinal}]`
    if (turn%2 === 0) {
     $(destination).addClass("red");
    } else {
@@ -33,7 +33,7 @@ function upRight(rowInitial, columnInitial) {
     var columnFinal = columnInitial + 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-   var destination = "[row=rowFinal][column=columnFinal]"
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
    if (turn%2 === 0) {
     $(destination).addClass("red");
    } else {
@@ -46,7 +46,7 @@ function downLeft(rowInitial, columnInitial) {
     var columnFinal = columnInitial -1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-    var destination = "[row=rowFinal][column=columnFinal]"
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn%2 === 0) {
      $(destination).addClass("red");
     } else {
@@ -59,7 +59,7 @@ function downRight(rowInitial, columnInitial) {
     var columnFinal = columnInitial -1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-    var destination = "[row=rowFinal][column=columnFinal]"
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn%2 === 0) {
      $(destination).addClass("red");
     } else {
