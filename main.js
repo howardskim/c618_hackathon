@@ -1,3 +1,4 @@
+
 $(document).ready(doThisWhenReady);
 var boardGameArray = [
     ["", "B", "", "B", "", "B", "", "B", ],
@@ -18,40 +19,70 @@ function doThisWhenReady() {
 
 }
 
+
 function applyClickHandlers() {
     $('.zombie').on('click', );
     $('.plant').on('click' )
     $('.highlight').on('click', )
 }
 
+
 function upLeft() {
     var rowInitial = $(this).attr("row")
     var columnInitial = $(this).attr("column")
+
+
+function highLight() {
+    var rowInitial = $(this).attr("row")
+    var columnInitial = $(this).attr("column")
+
+    if (turn % 2 === 0 && $(this).hasClass("plant")) {
+        upLeft(rowInitial, columnInitial); 
+        upRight(rowInitial, columnInitial);
+    } else if (turn % 2 === 1 && $(this).hasClass("zombie")){
+        downLeft(rowInitial, columnInitial);
+        downRight(rowInitial, columnInitial); 
+    }
+
+
+}
+
+
+
+
     var rowFinal = rowInitial - 1;
     var columnFinal = columnInitial - 1;
     //removes red or black chip from initial position
-    $(this).removeClass("red").removeClass("black");
+    // $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position  
 
-    var destination = `[row=${rowFinal}][column=${columnFinal}]`
-    if (turn % 2 === 0) {
-        $(destination).addClass("red");
+    var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
+
+    if ($(destinationDiv).hasClass("zombie")) {
+        jumpUpLeft(rowInitial, columnInitial)
+    } else if ($(destinationDiv).hasClass("plant")) {
+        return;
     } else {
-        $(destination).addClass("black");
+        $(destinationDiv).addClass("highlight");
     }
+
+
 
 }
 
 function upRight(rowInitial, columnInitial) {
     var rowFinal = rowInitial - 1;
     var columnFinal = columnInitial + 1;
-    $(this).removeClass("red").removeClass("black");
+    // $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-    var destination = `[row=${rowFinal}][column=${columnFinal}]`
-    if (turn % 2 === 0) {
-        $(destination).addClass("red");
+    var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
+
+    if ($(destinationDiv).hasClass("zombie")) {
+        jumpUpRight(rowInitial, columnInitial)
+    } else if ($(destinationDiv).hasClass("plant")) {
+        return;
     } else {
-        $(destination).addClass("black");
+        $(destinationDiv).addClass("highlight");
     }
 }
 
@@ -60,35 +91,33 @@ function downLeft(rowInitial, columnInitial) {
     var columnFinal = columnInitial - 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-    var destination = `[row=${rowFinal}][column=${columnFinal}]`
-    if (turn % 2 === 0) {
-        $(destination).addClass("red");
+    var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
+
+    if ($(destinationDiv).hasClass("plant")) {
+        jumpDownLeft(rowInitial, columnInitial)
+    } else if ($(destinationDiv).hasClass("zombie")) {
+        return;
     } else {
-        $(destination).addClass("black");
+        $(destinationDiv).addClass("highlight");
     }
 }
 
 function downRight(rowInitial, columnInitial) {
     var rowFinal = rowInitial + 1;
-    var columnFinal = columnInitial - 1;
+    var columnFinal = columnInitial + 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
-    var destination = `[row=${rowFinal}][column=${columnFinal}]`
-    if (turn % 2 === 0) {
-        $(destination).addClass("red");
+    var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
+    if ($(destinationDiv).hasClass("plant")) {
+        jumpDownRight(rowInitial, columnInitial)
+    } else if ($(destinationDiv).hasClass("zombie")) {
+        return;
     } else {
-        $(destination).addClass("black");
+        $(destinationDiv).addClass("highlight");
     }
 }
 
-function jumpUpLeft(posX, posY) {
-    var user;
-    var enemy;
 
-    if (gamePiecePos.hasClass("red")) {
-        return;
-    } else if (gamePiecePos.hasClass("black")) {
-        return;
     }
     if (user.hasClass("red")) {
         enemy.removeClass("black");
