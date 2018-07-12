@@ -23,6 +23,7 @@ function doThisWhenReady() {
     buildGameBoard(boardGameArray);
     applyClickHandlers();
     $("button").click(reset);
+    startStats();
 }
 
 
@@ -113,6 +114,7 @@ function upLeft(event) {
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpLeft(rowInitial, columnInitial)
+        displayStats();
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -132,6 +134,7 @@ function upRight(event) {
     //this if statement goes over 1. can the gamepiece jump? 2. exit function 3. add highlight 
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpRight(rowInitial, columnInitial)
+        displayStats();
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -149,7 +152,10 @@ function downLeft(event) {
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
 
     if ($(destinationDiv).hasClass("plant")) {
+
         // jumpDownLeft(rowInitial, columnInitial)
+
+        
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -165,7 +171,9 @@ function downRight(event) {
     $(this).removeClass("red").removeClass("black");
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("plant")) {
+
         // jumpDownRight(rowInitial, columnInitial)
+
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -280,4 +288,5 @@ function reset(){
     right =null;
     lastCellInitiated = null;
     highLightCounter = 0;
+
 }
