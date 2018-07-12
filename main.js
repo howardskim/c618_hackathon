@@ -112,7 +112,7 @@ function upLeft(event) {
     //adds red or black chip to final position  
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("zombie")) {
-        jumpUpLeft(rowInitial, columnInitial)
+        jumpUpLeft(event);
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -123,7 +123,7 @@ function upLeft(event) {
 
 function upRight(event) {
     rowInitial = $(event.target).closest('div').attr('row');
-    columnInitial = $(event.target).closest('div').attr("column")
+    columnInitial = $(event.target).closest('div').attr("column");
     var rowFinal = rowInitial - 1;
     var columnFinal = +columnInitial + 1;
     //destinationDiv selects the DOM element at a certain coordinate.
@@ -131,7 +131,7 @@ function upRight(event) {
 
     //this if statement goes over 1. can the gamepiece jump? 2. exit function 3. add highlight 
     if ($(destinationDiv).hasClass("zombie")) {
-        jumpUpRight(rowInitial, columnInitial)
+        jumpUpRight(event);
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -173,56 +173,66 @@ function downRight(event) {
     }
 }
 
-function jumpUpLeft(rowInitial, columnInitial) {
+function jumpUpLeft(event) {
+    console.log('jump in left');
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column")
     var rowFinal = rowInitial - 2;
     var columnFinal = columnInitial - 2;
-    $(this).removeClass("plant").removeClass("zombie");
+    // $(`[row=${rowInitial}][column=${columnInitial}]`).removeClass("plant").removeClass("zombie");
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("highLight");
+        $(destination).addClass("highlight");
     } else {
-        $(destination).addClass("highLight");
+        $(destination).addClass("highlight");
     }
 }
 
-function jumpUpRight(rowInitial, columnInitial) {
+function jumpUpRight(event) {
+    console.log('jump in right');
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column");
     var rowFinal = rowInitial - 2;
     var columnFinal = +columnInitial + 2;
-    $(this).removeClass("plant").removeClass("zombie");
+    // $(`[row=${rowInitial}][column=${columnInitial}]`).removeClass("plant").removeClass("zombie");
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("highLight");
+        $(destination).addClass("highlight");
     } else {
-        $(destination).addClass("highLight");
+        $(destination).addClass("highlight");
     }
 
 }
 
 function jumpDownLeft(rowInitial, columnInitial) {
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column");
     var rowFinal = +rowInitial + 2;
     var columnFinal = columnInitial - 2;
     $(this).removeClass("plant").removeClass("zombie");  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("plant");
+        $(destination).addClass("highlight");
     } else {
-        $(destination).addClass("zombie");
+        $(destination).addClass("highlight");
     }
 }
 
 function jumpDownRight(rowInitial, columnInitial) {
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column");
     var rowFinal = +rowInitial + 2;
     var columnFinal = +columnInitial + 2;
     $(this).removeClass("plant").removeClass("zombie");
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("plant");
+        $(destination).addClass("highlight");
     } else {
-        $(destination).addClass("zombie");
+        $(destination).addClass("highlight");
     }
 }
 
