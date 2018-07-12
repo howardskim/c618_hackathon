@@ -14,6 +14,8 @@ var zombieLives = 12;
 var turn = 0;
 var rowInitial;
 var columnInitial;
+var left=null;
+var right =null;
 
 function doThisWhenReady() {
     buildGameBoard(boardGameArray);
@@ -23,23 +25,56 @@ function doThisWhenReady() {
 
 
 function applyClickHandlers() {
-    $('.zombie').on('click', highLight);
-    $('.plant').on('click', highLight)
-    // $('.highlight').on('click', )
+    $('.zombie, .plant').on('click', highLight);
+    // $('.highlight').on('click', movement);
 }
 
 function highLight() {
+    if(turn % 2 === 0 && $(this).hasClass('zombie')){
+        return;
+    }
+
+    if(turn % 2 === 1 && $(this).hasClass('plant')) {
+        console.log(turn);
+        return;
+    }
+
     $('.highlight').removeClass('highlight');
     rowInitial = $(this).attr("row")
     columnInitial = $(this).attr("column")
     if (turn % 2 === 0 && $(this).hasClass("plant")) {
+        // debugger;
         // upLeft(rowInitial, columnInitial);
-        upLeft(event)
-        upRight(event);
+       left= upLeft(event)
+        right=upRight(event);
+        $('.highlight').on('click', movement);
     } else if (turn % 2 === 1 && $(this).hasClass("zombie")) {
-        downLeft(event);
-        downRight(event);
+        // debugger;
+        left=downLeft(event);
+        right=downRight(event);
+        $('.highlight').on('click', movement);
     }
+}
+
+function movement(event) {
+    debugger
+    $('.highlight').removeClass('highlight');
+    console.log("test movement");
+    if (turn % 2 === 0 ) {
+        $(event.target).closest("div").addClass("plant");
+        console.log("ya");
+    } else if (turn % 2 === 1) {
+        $(event.target).closest("div").addClass("zombie");
+        console.log("hello");
+    }
+
+    turn++;
+    console.log(turn);
+    $('.highlight').removeClass('highlight');
+    $(left).off("click");
+    $(right).off("click");
+    left=null;
+    right=null;
 }
 
 function upLeft(event) {
@@ -54,9 +89,10 @@ function upLeft(event) {
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpLeft(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
-        return;
+        return destinationDiv;
     } else {
         $(destinationDiv).addClass("highlight");
+        return destinationDiv;
     }
 }
 
@@ -73,9 +109,10 @@ function upRight(event) {
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpRight(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
-        return;
+        return destinationDiv;
     } else {
         $(destinationDiv).addClass("highlight");
+        return destinationDiv;
     }
 }
 
