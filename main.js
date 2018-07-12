@@ -28,10 +28,9 @@ function applyClickHandlers() {
 }
 
 function highLight() {
+    $('.highlight').removeClass('highlight');
     rowInitial = $(this).attr("row")
     columnInitial = $(this).attr("column")
-    console.log('the row is ' + rowInitial)
-    console.log('column is ' + columnInitial)
     if (turn % 2 === 0 && $(this).hasClass("plant")) {
         // upLeft(rowInitial, columnInitial);
         upLeft(event)
@@ -50,9 +49,7 @@ function upLeft(event) {
     //removes red or black chip from initial position
     // $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position  
-
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
-
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpLeft(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
