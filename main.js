@@ -19,6 +19,7 @@ function doThisWhenReady() {
     buildGameBoard(boardGameArray);
     applyClickHandlers();
     $("button").click(reset);
+    startStats();
 }
 
 
@@ -53,6 +54,7 @@ function upLeft(event) {
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpLeft(rowInitial, columnInitial)
+        displayStats();
     } else if ($(destinationDiv).hasClass("plant")) {
         return;
     } else {
@@ -72,6 +74,7 @@ function upRight(event) {
 
     if ($(destinationDiv).hasClass("zombie")) {
         jumpUpRight(rowInitial, columnInitial)
+        displayStats();
     } else if ($(destinationDiv).hasClass("plant")) {
         return;
     } else {
@@ -90,6 +93,7 @@ function downLeft(event) {
 
     if ($(destinationDiv).hasClass("plant")) {
         jumpDownLeft(rowInitial, columnInitial)
+        displayStats();
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -107,6 +111,7 @@ function downRight(event) {
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("plant")) {
         jumpDownRight(rowInitial, columnInitial)
+        displayStats();
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -225,4 +230,15 @@ function reset(){
     var zombieLives = 12;
     var turn = 0;
     buildGameBoard(boardGameArray);
+    startStats();
+}
+
+function startStats(){
+    $(".zombieCounter .value").text(zombieLives);
+    $(".plantCounter .value").text(plantLives);
+}
+
+function displayStats(){
+    $(".zombieCounter .value").text(zombieLives);
+    $(".plantCounter .value").text(plantLives);
 }
