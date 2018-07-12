@@ -116,64 +116,64 @@ function downRight(event) {
     }
 }
 
-function jumpUpLeft(row, column) {
-    var rowFinal = row - 2;
-    var columnFinal = column - 2;
+function jumpUpLeft(rowInitial, columnInitial) {
+    var rowFinal = rowInitial - 2;
+    var columnFinal = columnInitial - 2;
     //removes red or black chip from initial position
-    $(this).removeClass("red").removeClass("black");
+    $(this).removeClass("plant").removeClass("zombie");
     //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("red");
+        $(destination).addClass("plant");
     } else {
-        $(destination).addClass("black");
+        $(destination).addClass("zombie");
     }
 }
 
-function jumpUpRight(row, column) {
-    var rowFinal = row - 2;
-    var columnFinal = column + 2;
+function jumpUpRight(rowInitial, columnInitial) {
+    var rowFinal = rowInitial - 2;
+    var columnFinal = columnInitial + 2;
     //removes red or black chip from initial position
-    $(this).removeClass("red").removeClass("black");
+    $(this).removeClass("plant").removeClass("zombie");
     //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("red");
+        $(destination).addClass("plant");
     } else {
-        $(destination).addClass("black");
+        $(destination).addClass("zombie");
     }
 
 }
 
-function jumpDownLeft(row, column) {
-    var rowFinal = row + 2;
-    var columnFinal = column - 2;
+function jumpDownLeft(rowInitial, columnInitial) {
+    var rowFinal = rowInitial + 2;
+    var columnFinal = columnInitial - 2;
     //removes red or black chip from initial position
-    $(this).removeClass("red").removeClass("black");
+    $(this).removeClass("plant").removeClass("zombie");
     //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("red");
+        $(destination).addClass("plant");
     } else {
-        $(destination).addClass("black");
+        $(destination).addClass("zombie");
     }
 }
 
-function jumpDownRight(row, column) {
-    var rowFinal = row + 2;
-    var columnFinal = column + 2;
+function jumpDownRight(rowInitial, columnInitial) {
+    var rowFinal = rowInitial + 2;
+    var columnFinal = columnInitial + 2;
     //removes red or black chip from initial position
-    $(this).removeClass("red").removeClass("black");
+    $(this).removeClass("plant").removeClass("zombie");
     //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("red");
+        $(destination).addClass("plant");
     } else {
-        $(destination).addClass("black");
+        $(destination).addClass("zombie");
     }
 }
 
