@@ -16,6 +16,7 @@ var rowInitial;
 var columnInitial;
 var left=null;
 var right =null;
+var lastCellInitiated = null;
 
 function doThisWhenReady() {
     buildGameBoard(boardGameArray);
@@ -30,6 +31,8 @@ function applyClickHandlers() {
 }
 
 function highLight() {
+    lastCellInitiated = this;
+    console.log(`turn: ${turn} classes: `+$(this).attr('class'));
     if(turn % 2 === 0 && $(this).hasClass('zombie')){
         return;
     }
@@ -57,14 +60,16 @@ function highLight() {
 }
 
 function movement(event) {
-    debugger
+    $(lastCellInitiated).removeClass('plant').removeClass('zombie').off('click');
     $('.highlight').removeClass('highlight');
+    $(".column").off('click', movement);
     console.log("test movement");
     if (turn % 2 === 0 ) {
-        $(event.target).closest("div").addClass("plant");
+        var element = $(event.target).closest("div").addClass("plant");
+        //element.on('click', highLight);
         console.log("ya");
     } else if (turn % 2 === 1) {
-        $(event.target).closest("div").addClass("zombie");
+        var element = $(event.target).closest("div").addClass("zombie")//.on('click', highLight);
         console.log("hello");
     }
 
@@ -73,6 +78,8 @@ function movement(event) {
     $('.highlight').removeClass('highlight');
     $(left).off("click");
     $(right).off("click");
+    //element.off('click');
+    element.on('click',highLight)
     left=null;
     right=null;
 }
