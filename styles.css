@@ -116,3 +116,6 @@ body {
 .highlight{
     border: 4px solid white;
 }
+.currentTurn{
+    border: 4px dashed yellow;
+}
