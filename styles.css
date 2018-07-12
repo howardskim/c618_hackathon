@@ -46,7 +46,7 @@ body {
 
 .statsArea {
     /* border: 2px dotted purple; */
-    width: 33%;
+    width: 32%;
     height: 100%;
     font-size: 3em;
     font-family: Joti One;
@@ -60,16 +60,18 @@ body {
     align-items: center;
     justify-content: space-evenly;
 }
+.statsArea div{
+    text-align: center;
+}
 
 .resetArea button {
     height: 3em;
-    width: 10em;
+    /* width: 10em; */
     font-size: 1em;
     color: white;
     background-color: black;
     border-radius: 5%;
     font-family: Joti One;
-
 }
 
 .resetArea button:hover {
