@@ -1,4 +1,3 @@
-
 $(document).ready(doThisWhenReady);
 var boardGameArray = [
     ["", "B", "", "B", "", "B", "", "B", ],
@@ -12,36 +11,40 @@ var boardGameArray = [
 ]
 var plantLives = 12;
 var zombieLives = 12;
+var turn = 0;
+var rowInitial;
+var columnInitial;
 
 function doThisWhenReady() {
-    applyClickHandlers();
     buildGameBoard(boardGameArray);
-
+    applyClickHandlers();
 }
 
 
 function applyClickHandlers() {
-    $('.zombie').on('click', );
-    $('.plant').on('click' )
-    $('.highlight').on('click', )
+    $('.zombie').on('click', highLight);
+    $('.plant').on('click', highLight)
+    // $('.highlight').on('click', )
 }
 
 function highLight() {
-    var rowInitial = $(this).attr("row")
-    var columnInitial = $(this).attr("column")
-
+    rowInitial = $(this).attr("row")
+    columnInitial = $(this).attr("column")
+    console.log('the row is ' + rowInitial)
+    console.log('column is ' + columnInitial)
     if (turn % 2 === 0 && $(this).hasClass("plant")) {
-        upLeft(rowInitial, columnInitial);
-        upRight(rowInitial, columnInitial);
+        // upLeft(rowInitial, columnInitial);
+        upLeft(event)
+        upRight(event);
     } else if (turn % 2 === 1 && $(this).hasClass("zombie")) {
-        downLeft(rowInitial, columnInitial);
-        downRight(rowInitial, columnInitial);
+        downLeft(event);
+        downRight(event);
     }
 }
 
-function upLeft() {
-    var rowInitial = $(this).attr("row")
-    var columnInitial = $(this).attr("column")
+function upLeft(event) {
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column")
     var rowFinal = rowInitial - 1;
     var columnFinal = columnInitial - 1;
     //removes red or black chip from initial position
@@ -57,14 +60,14 @@ function upLeft() {
     } else {
         $(destinationDiv).addClass("highlight");
     }
-
-
-
 }
 
-function upRight(rowInitial, columnInitial) {
+function upRight(event) {
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column")
     var rowFinal = rowInitial - 1;
-    var columnFinal = columnInitial + 1;
+    var columnFinal = +columnInitial + 1;
+
     // $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
@@ -78,8 +81,10 @@ function upRight(rowInitial, columnInitial) {
     }
 }
 
-function downLeft(rowInitial, columnInitial) {
-    var rowFinal = rowInitial + 1;
+function downLeft(event) {
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column")
+    var rowFinal = +rowInitial + 1;
     var columnFinal = columnInitial - 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
@@ -94,9 +99,11 @@ function downLeft(rowInitial, columnInitial) {
     }
 }
 
-function downRight(rowInitial, columnInitial) {
-    var rowFinal = rowInitial + 1;
-    var columnFinal = columnInitial + 1;
+function downRight(event) {
+    rowInitial = $(event.target).closest('div').attr('row');
+    columnInitial = $(event.target).closest('div').attr("column")
+    var rowFinal = +rowInitial + 1;
+    var columnFinal = +columnInitial + 1;
     $(this).removeClass("red").removeClass("black");
     //adds red or black chip to final position
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
@@ -109,65 +116,65 @@ function downRight(rowInitial, columnInitial) {
     }
 }
 
-    function jumpUpLeft(row, column) {
-        var rowFinal = row - 2;
-        var columnFinal = column - 2;
-        //removes red or black chip from initial position
-        $(this).removeClass("red").removeClass("black");
-        //adds red or black chip to final position  
-    
-        var destination = `[row=${rowFinal}][column=${columnFinal}]`
-        if (turn % 2 === 0) {
-            $(destination).addClass("red");
-        } else {
-            $(destination).addClass("black");
-        }
+function jumpUpLeft(row, column) {
+    var rowFinal = row - 2;
+    var columnFinal = column - 2;
+    //removes red or black chip from initial position
+    $(this).removeClass("red").removeClass("black");
+    //adds red or black chip to final position  
+
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
+    } else {
+        $(destination).addClass("black");
+    }
+}
+
+function jumpUpRight(row, column) {
+    var rowFinal = row - 2;
+    var columnFinal = column + 2;
+    //removes red or black chip from initial position
+    $(this).removeClass("red").removeClass("black");
+    //adds red or black chip to final position  
+
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
+    } else {
+        $(destination).addClass("black");
     }
 
-    function jumpUpRight(row, column) {
-        var rowFinal = row - 2;
-        var columnFinal = column + 2;
-        //removes red or black chip from initial position
-        $(this).removeClass("red").removeClass("black");
-        //adds red or black chip to final position  
+}
 
-        var destination = `[row=${rowFinal}][column=${columnFinal}]`
-        if (turn % 2 === 0) {
-            $(destination).addClass("red");
-        } else {
-            $(destination).addClass("black");
-        }
+function jumpDownLeft(row, column) {
+    var rowFinal = row + 2;
+    var columnFinal = column - 2;
+    //removes red or black chip from initial position
+    $(this).removeClass("red").removeClass("black");
+    //adds red or black chip to final position  
 
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
+    } else {
+        $(destination).addClass("black");
     }
+}
 
-    function jumpDownLeft(row, column) {
-        var rowFinal = row + 2;
-        var columnFinal = column - 2;
-        //removes red or black chip from initial position
-        $(this).removeClass("red").removeClass("black");
-        //adds red or black chip to final position  
-    
-        var destination = `[row=${rowFinal}][column=${columnFinal}]`
-        if (turn % 2 === 0) {
-            $(destination).addClass("red");
-        } else {
-            $(destination).addClass("black");
-        }
+function jumpDownRight(row, column) {
+    var rowFinal = row + 2;
+    var columnFinal = column + 2;
+    //removes red or black chip from initial position
+    $(this).removeClass("red").removeClass("black");
+    //adds red or black chip to final position  
+
+    var destination = `[row=${rowFinal}][column=${columnFinal}]`
+    if (turn % 2 === 0) {
+        $(destination).addClass("red");
+    } else {
+        $(destination).addClass("black");
     }
-
-    function jumpDownRight(row, column) {
-        var rowFinal = row + 2;
-        var columnFinal = column + 2;
-        //removes red or black chip from initial position
-        $(this).removeClass("red").removeClass("black");
-        //adds red or black chip to final position  
-
-        var destination = `[row=${rowFinal}][column=${columnFinal}]`
-        if (turn % 2 === 0) {
-            $(destination).addClass("red");
-        } else {
-            $(destination).addClass("black");
-        }
 }
 
 function buildGameBoard(array) {
@@ -199,17 +206,16 @@ function buildGameBoard(array) {
             } else if (columnIndex % 2 !== 0 && alternator === 1) {
                 columnDiv.addClass('red')
             };
-          
-            if (boardGameArray[rowIndex][columnIndex] === 'B'){
+
+            if (boardGameArray[rowIndex][columnIndex] === 'B') {
                 columnDiv.addClass('zombie')
-            } else if (boardGameArray[rowIndex][columnIndex] === 'R'){
+            } else if (boardGameArray[rowIndex][columnIndex] === 'R') {
                 columnDiv.addClass('plant')
             }
             rowDiv.append(columnDiv);
             gameBoardAreaDiv.append(rowDiv);
         }
-            alternator = 1 - alternator;
-    }   
+        alternator = 1 - alternator;
+    }
 
 }
-
