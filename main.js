@@ -18,6 +18,7 @@ var columnInitial;
 function doThisWhenReady() {
     buildGameBoard(boardGameArray);
     applyClickHandlers();
+    $("button").click(reset);
 }
 
 
@@ -215,4 +216,13 @@ function buildGameBoard(array) {
         alternator = 1 - alternator;
     }
 
+}
+
+function reset(){
+    console.log("reset game");
+    $(".boardGameArea").empty();
+    var plantLives = 12;
+    var zombieLives = 12;
+    var turn = 0;
+    buildGameBoard(boardGameArray);
 }
