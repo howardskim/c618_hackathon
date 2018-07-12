@@ -32,17 +32,21 @@ function applyClickHandlers() {
 }
 
 function highLight() {
-   
 
-    //whatever i 
+    //this function highlights the squares that a clicked piece could move to. This function also calls the movement function when clicked on.
+   
     lastCellInitiated = this;
     console.log(`turn: ${turn} classes: `+$(this).attr('class'));
     if(turn % 2 === 0 && $(this).hasClass('zombie')){
+        //this takes advantage of the user behavior. If the bug appears where highLightCounter is one and the highlighted squares become unresponsive, 
+        //then user would click on other pieces just to check wtf is going on. By doing that, the user fixes the problem.
+        highLightCounter = 0;
         return;
     }
 
     if(turn % 2 === 1 && $(this).hasClass('plant')) {
         console.log(turn);
+        highLightCounter = 0;
         return;
     }
 
@@ -54,7 +58,8 @@ function highLight() {
         // upLeft(rowInitial, columnInitial);
        left= upLeft(event)
         right=upRight(event);
-        //highLightCounter is 
+        //highLightCounter prevents clickhandlers from being added multiple times; if you click on the same game piece multiple times, 
+        //running the code multiple times, the if statement below prevents highlight function from adding multiple classes.
         if(highLightCounter===0){
         $('.highlight').on('click', movement);
         highLightCounter++
@@ -72,6 +77,7 @@ function highLight() {
 }
 
 function movement(event) {
+    //set highLightCounter to zero everytime you move.
     highLightCounter = 0;
     $(lastCellInitiated).removeClass('plant').removeClass('zombie').off('click');
     $('.highlight').removeClass('highlight');
@@ -106,7 +112,7 @@ function upLeft(event) {
     //adds red or black chip to final position  
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("zombie")) {
-        // jumpUpLeft(rowInitial, columnInitial)
+        jumpUpLeft(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -120,13 +126,12 @@ function upRight(event) {
     columnInitial = $(event.target).closest('div').attr("column")
     var rowFinal = rowInitial - 1;
     var columnFinal = +columnInitial + 1;
-
-    // $(this).removeClass("red").removeClass("black");
-    //adds red or black chip to final position
+    //destinationDiv selects the DOM element at a certain coordinate.
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
 
+    //this if statement goes over 1. can the gamepiece jump? 2. exit function 3. add highlight 
     if ($(destinationDiv).hasClass("zombie")) {
-        // jumpUpRight(rowInitial, columnInitial)
+        jumpUpRight(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -141,7 +146,6 @@ function downLeft(event) {
     var rowFinal = +rowInitial + 1;
     var columnFinal = columnInitial - 1;
     $(this).removeClass("red").removeClass("black");
-    //adds red or black chip to final position
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
 
     if ($(destinationDiv).hasClass("plant")) {
@@ -159,7 +163,6 @@ function downRight(event) {
     var rowFinal = +rowInitial + 1;
     var columnFinal = +columnInitial + 1;
     $(this).removeClass("red").removeClass("black");
-    //adds red or black chip to final position
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("plant")) {
         // jumpDownRight(rowInitial, columnInitial)
@@ -173,30 +176,26 @@ function downRight(event) {
 function jumpUpLeft(rowInitial, columnInitial) {
     var rowFinal = rowInitial - 2;
     var columnFinal = columnInitial - 2;
-    //removes red or black chip from initial position
     $(this).removeClass("plant").removeClass("zombie");
-    //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("plant");
+        $(destination).addClass("highLight");
     } else {
-        $(destination).addClass("zombie");
+        $(destination).addClass("highLight");
     }
 }
 
 function jumpUpRight(rowInitial, columnInitial) {
     var rowFinal = rowInitial - 2;
     var columnFinal = +columnInitial + 2;
-    //removes red or black chip from initial position
     $(this).removeClass("plant").removeClass("zombie");
-    //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
-        $(destination).addClass("plant");
+        $(destination).addClass("highLight");
     } else {
-        $(destination).addClass("zombie");
+        $(destination).addClass("highLight");
     }
 
 }
@@ -204,9 +203,7 @@ function jumpUpRight(rowInitial, columnInitial) {
 function jumpDownLeft(rowInitial, columnInitial) {
     var rowFinal = +rowInitial + 2;
     var columnFinal = columnInitial - 2;
-    //removes red or black chip from initial position
-    $(this).removeClass("plant").removeClass("zombie");
-    //adds red or black chip to final position  
+    $(this).removeClass("plant").removeClass("zombie");  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
@@ -219,9 +216,7 @@ function jumpDownLeft(rowInitial, columnInitial) {
 function jumpDownRight(rowInitial, columnInitial) {
     var rowFinal = +rowInitial + 2;
     var columnFinal = +columnInitial + 2;
-    //removes red or black chip from initial position
     $(this).removeClass("plant").removeClass("zombie");
-    //adds red or black chip to final position  
 
     var destination = `[row=${rowFinal}][column=${columnFinal}]`
     if (turn % 2 === 0) {
