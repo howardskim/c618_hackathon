@@ -17,6 +17,7 @@ var columnInitial;
 var left=null;
 var right =null;
 var lastCellInitiated = null;
+var highLightCounter = 0;
 
 function doThisWhenReady() {
     buildGameBoard(boardGameArray);
@@ -31,6 +32,9 @@ function applyClickHandlers() {
 }
 
 function highLight() {
+   
+
+    //whatever i 
     lastCellInitiated = this;
     console.log(`turn: ${turn} classes: `+$(this).attr('class'));
     if(turn % 2 === 0 && $(this).hasClass('zombie')){
@@ -50,16 +54,25 @@ function highLight() {
         // upLeft(rowInitial, columnInitial);
        left= upLeft(event)
         right=upRight(event);
+        //highLightCounter is 
+        if(highLightCounter===0){
         $('.highlight').on('click', movement);
+        highLightCounter++
+        }
     } else if (turn % 2 === 1 && $(this).hasClass("zombie")) {
         // debugger;
         left=downLeft(event);
         right=downRight(event);
-        $('.highlight').on('click', movement);
+        if(highLightCounter === 0) {
+            $('.highlight').on('click', movement);
+            highLightCounter++;
+        }
     }
+
 }
 
 function movement(event) {
+    highLightCounter = 0;
     $(lastCellInitiated).removeClass('plant').removeClass('zombie').off('click');
     $('.highlight').removeClass('highlight');
     $(".column").off('click', movement);
@@ -72,7 +85,6 @@ function movement(event) {
         var element = $(event.target).closest("div").addClass("zombie")//.on('click', highLight);
         console.log("hello");
     }
-
     turn++;
     console.log(turn);
     $('.highlight').removeClass('highlight');
@@ -94,7 +106,7 @@ function upLeft(event) {
     //adds red or black chip to final position  
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("zombie")) {
-        jumpUpLeft(rowInitial, columnInitial)
+        // jumpUpLeft(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -114,7 +126,7 @@ function upRight(event) {
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
 
     if ($(destinationDiv).hasClass("zombie")) {
-        jumpUpRight(rowInitial, columnInitial)
+        // jumpUpRight(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("plant")) {
         return destinationDiv;
     } else {
@@ -133,7 +145,7 @@ function downLeft(event) {
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
 
     if ($(destinationDiv).hasClass("plant")) {
-        jumpDownLeft(rowInitial, columnInitial)
+        // jumpDownLeft(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -150,7 +162,7 @@ function downRight(event) {
     //adds red or black chip to final position
     var destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("plant")) {
-        jumpDownRight(rowInitial, columnInitial)
+        // jumpDownRight(rowInitial, columnInitial)
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -175,7 +187,7 @@ function jumpUpLeft(rowInitial, columnInitial) {
 
 function jumpUpRight(rowInitial, columnInitial) {
     var rowFinal = rowInitial - 2;
-    var columnFinal = columnInitial + 2;
+    var columnFinal = +columnInitial + 2;
     //removes red or black chip from initial position
     $(this).removeClass("plant").removeClass("zombie");
     //adds red or black chip to final position  
@@ -190,7 +202,7 @@ function jumpUpRight(rowInitial, columnInitial) {
 }
 
 function jumpDownLeft(rowInitial, columnInitial) {
-    var rowFinal = rowInitial + 2;
+    var rowFinal = +rowInitial + 2;
     var columnFinal = columnInitial - 2;
     //removes red or black chip from initial position
     $(this).removeClass("plant").removeClass("zombie");
@@ -205,8 +217,8 @@ function jumpDownLeft(rowInitial, columnInitial) {
 }
 
 function jumpDownRight(rowInitial, columnInitial) {
-    var rowFinal = rowInitial + 2;
-    var columnFinal = columnInitial + 2;
+    var rowFinal = +rowInitial + 2;
+    var columnFinal = +columnInitial + 2;
     //removes red or black chip from initial position
     $(this).removeClass("plant").removeClass("zombie");
     //adds red or black chip to final position  
@@ -265,8 +277,12 @@ function buildGameBoard(array) {
 function reset(){
     console.log("reset game");
     $(".boardGameArea").empty();
-    var plantLives = 12;
-    var zombieLives = 12;
-    var turn = 0;
-    buildGameBoard(boardGameArray);
+    plantLives = 12;
+    zombieLives = 12;
+    turn = 0;
+    doThisWhenReady();
+    left=null;
+    right =null;
+    lastCellInitiated = null;
+    highLightCounter = 0;
 }
