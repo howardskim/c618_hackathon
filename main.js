@@ -14,8 +14,10 @@ var zombieLives = 12;
 var turn = 0;
 var rowInitial;
 var columnInitial;
-var left = null;
-var right = null;
+var left=null;
+var right =null;
+var kingLeft=null;
+var kingRight=null;
 var lastCellInitiated = null;
 var highLightCounter = 0;
 var kill = false;
@@ -29,6 +31,7 @@ function doThisWhenReady() {
     applyClickHandlers();
     $("button").click(reset);
     startStats();
+    kingMaker();
 }
 
 
@@ -39,6 +42,10 @@ function applyClickHandlers() {
 
 function highLight() {
     $('.currentTurn').removeClass('currentTurn');
+
+
+
+
     //this function highlights the squares that a clicked piece could move to. This function also calls the movement function when clicked on.
     $('.column').off('click', movement);
     lastCellInitiated = this;
@@ -59,20 +66,29 @@ function highLight() {
     $('.highlight').removeClass('highlight');
     rowInitial = $(this).attr("row")
     columnInitial = $(this).attr("column")
-    if (turn % 2 === 0 && $(this).hasClass("plant")) {
-        // debugger;
-        // upLeft(rowInitial, columnInitial);
-        left = upLeft(event)
-        right = upRight(event);
-        
 
-        //highLightCounter prevents clickhandlers from being added multiple times; if you click on the same game piece multiple times, 
-        //running the code multiple times, the if statement below prevents highlight function from adding multiple classes.
+    if (turn % 2 === 0 && $(this).hasClass("plant")) {
+
+
+       left= upLeft(event)
+        right=upRight(event);
+        
+        if ($(this).hasId('plantKing')) {
+           kingLeft = downLeft(event); 
+            kingRight = downRight(event); 
+        }
+       
+
 
     } else if (turn % 2 === 1 && $(this).hasClass("zombie")) {
         // debugger;
         left = downLeft(event);
         right = downRight(event);
+
+        if($(this).hasId('zombieKing')) {
+            kingLeft = upLeft(event);
+            kingRight = upRight(event);
+        }
 
     }
     //if(highLightCounter===0){
@@ -119,12 +135,6 @@ function movement(event) {
     //element.on('click',highLight)
     left = null;
     right = null;
-}
-
-function kill() {
-    if (kill === true) {
-
-    }
 }
 
 function upLeft(event) {
@@ -342,7 +352,16 @@ function reset() {
 
 }
 
+
 function startStats() {
     $('.zombieCounter').text(`Number of Zombies Alive: ${zombieLives}`);
     $('.plantCounter').text(`Number of Plants Alive: ${plantLives}`);
+
+
+function kingMaker(){
+    if($(".column black plant").attr("row") === "0"){
+        $(".column black plant").attr("id", id + "plantKing");       
+    }else if($(".column black plant").attr("row") === "7"){
+        $(".column black plant").attr("id", id + "zombieKing");
+    }
 }
