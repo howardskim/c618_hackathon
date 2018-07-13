@@ -28,6 +28,7 @@ function doThisWhenReady() {
     buildGameBoard(boardGameArray);
     applyClickHandlers();
     $("button").click(reset);
+    startStats();
 }
 
 
@@ -328,4 +329,5 @@ function reset(){
     right =null;
     lastCellInitiated = null;
     highLightCounter = 0;
+
 }
