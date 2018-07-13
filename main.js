@@ -43,18 +43,21 @@ function applyClickHandlers() {
 function highLight() {
     $('.currentTurn').removeClass('currentTurn');
 
+
+
+
     //this function highlights the squares that a clicked piece could move to. This function also calls the movement function when clicked on.
     $('.column').off('click', movement);
     lastCellInitiated = this;
-    console.log(`turn: ${turn} classes: `+$(this).attr('class'));
-    if(turn % 2 === 0 && $(this).hasClass('zombie')){
+    console.log(`turn: ${turn} classes: ` + $(this).attr('class'));
+    if (turn % 2 === 0 && $(this).hasClass('zombie')) {
         //this takes advantage of the user behavior. If the bug appears where highLightCounter is one and the highlighted squares become unresponsive, 
         //then user would click on other pieces just to check wtf is going on. By doing that, the user fixes the problem.
         highLightCounter = 0;
         return;
     }
 
-    if(turn % 2 === 1 && $(this).hasClass('plant')) {
+    if (turn % 2 === 1 && $(this).hasClass('plant')) {
         console.log(turn);
         highLightCounter = 0;
         return;
@@ -66,6 +69,7 @@ function highLight() {
 
     if (turn % 2 === 0 && $(this).hasClass("plant")) {
 
+
        left= upLeft(event)
         right=upRight(event);
         
@@ -75,10 +79,11 @@ function highLight() {
         }
        
 
+
     } else if (turn % 2 === 1 && $(this).hasClass("zombie")) {
         // debugger;
-        left=downLeft(event);
-        right=downRight(event);
+        left = downLeft(event);
+        right = downRight(event);
 
         if($(this).hasId('zombieKing')) {
             kingLeft = upLeft(event);
@@ -87,9 +92,9 @@ function highLight() {
 
     }
     //if(highLightCounter===0){
-        $('.highlight').on('click', movement);
-        //highLightCounter++
-   // }
+    $('.highlight').on('click', movement);
+    //highLightCounter++
+    // }
 
 }
 
@@ -104,10 +109,13 @@ function movement(event) {
     console.log("test movement");
 
     $('.highlight').removeClass('highlight');
-    if(event.currentTarget.jumpTarget){
+    if (event.currentTarget.jumpTarget) {
         event.currentTarget.jumpTarget.removeClass('plant zombie');
     }
-    if (turn % 2 === 0 ) {
+
+
+
+    if (turn % 2 === 0) {
         var element = $(event.target).closest("div").addClass("plant");
         $('.zombie').on('click', highLight).addClass('currentTurn');
         console.log("ya");
@@ -117,15 +125,16 @@ function movement(event) {
         $('.plant').on('click', highLight).addClass('currentTurn');
     }
     turn++;
-    $('.column').each(function(){
-        this.jumpTarget= undefined;
+    startStats();
+    $('.column').each(function () {
+        this.jumpTarget = undefined;
     })
     // $(left).off("click");
     // $(right).off("click");
     //element.off('click');
     //element.on('click',highLight)
-    left=null;
-    right=null;
+    left = null;
+    right = null;
 }
 
 function upLeft(event) {
@@ -178,6 +187,7 @@ function downLeft(event) {
 
     if ($(destinationDiv).hasClass("plant")) {
         jumpDownLeft(event);
+        plantLives--;
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -194,6 +204,7 @@ function downRight(event) {
     destinationDiv = `[row=${rowFinal}][column=${columnFinal}]`
     if ($(destinationDiv).hasClass("plant")) {
         jumpDownRight(event);
+        plantLives--
     } else if ($(destinationDiv).hasClass("zombie")) {
         return;
     } else {
@@ -213,18 +224,19 @@ function jumpUpLeft(event) {
     if ($(destination).hasClass('zombie') || $(destination).hasClass('plant')) {
         return;
     }
-    $(destination)[0].jumpTarget =$(`[row=${rowInitial-1}][column=${columnInitial-1}]`)
+    $(destination)[0].jumpTarget = $(`[row=${rowInitial-1}][column=${columnInitial-1}]`)
     if (turn % 2 === 0) {
         $(destination).addClass("highlight");
     } else {
         $(destination).addClass("highlight");
     }
+    zombieLives--;
 }
 
 function jumpUpRight(event) {
     console.log('jump in right');
     rowInitial = parseInt($(event.target).closest('div').attr('row'));
-    columnInitial =parseInt($(event.target).closest('div').attr("column"));
+    columnInitial = parseInt($(event.target).closest('div').attr("column"));
     var rowFinal = rowInitial - 2;
     var columnFinal = columnInitial + 2;
     // $(`[row=${rowInitial}][column=${columnInitial}]`).removeClass("plant").removeClass("zombie");
@@ -232,25 +244,26 @@ function jumpUpRight(event) {
     if ($(destination).hasClass('zombie') || $(destination).hasClass('plant')) {
         return;
     }
-    $(destination)[0].jumpTarget =$(`[row=${rowInitial-1}][column=${columnInitial+1}]`)
+    $(destination)[0].jumpTarget = $(`[row=${rowInitial-1}][column=${columnInitial+1}]`)
     if (turn % 2 === 0) {
         $(destination).addClass("highlight");
     } else {
         $(destination).addClass("highlight");
     }
 
-
+    zombieLives--
 }
 
 function jumpDownLeft(rowInitial, columnInitial) {
+    plantLives--;
     rowInitial = parseInt($(event.target).closest('div').attr('row'));
     columnInitial = parseInt($(event.target).closest('div').attr("column"));
     var rowFinal = rowInitial + 2;
     var columnFinal = columnInitial - 2;
-    $(this).removeClass("plant").removeClass("zombie");  
+    $(this).removeClass("plant").removeClass("zombie");
 
     destination = `[row=${rowFinal}][column=${columnFinal}]`
-    $(destination)[0].jumpTarget =$(`[row=${rowInitial+1}][column=${columnInitial-1}]`)
+    $(destination)[0].jumpTarget = $(`[row=${rowInitial+1}][column=${columnInitial-1}]`)
     if ($(destination).hasClass('zombie') || $(destination).hasClass('plant')) {
         return;
     }
@@ -263,6 +276,7 @@ function jumpDownLeft(rowInitial, columnInitial) {
 
 
 function jumpDownRight(rowInitial, columnInitial) {
+    plantLives--;
     rowInitial = parseInt($(event.target).closest('div').attr('row'));
     columnInitial = parseInt($(event.target).closest('div').attr("column"));
     var rowFinal = +rowInitial + 2;
@@ -270,7 +284,7 @@ function jumpDownRight(rowInitial, columnInitial) {
     $(this).removeClass("plant").removeClass("zombie");
 
     destination = `[row=${rowFinal}][column=${columnFinal}]`
-    $(destination)[0].jumpTarget =$(`[row=${rowInitial+1}][column=${columnInitial+1}]`)
+    $(destination)[0].jumpTarget = $(`[row=${rowInitial+1}][column=${columnInitial+1}]`)
     if ($(destination).hasClass('zombie') || $(destination).hasClass('plant')) {
         return;
     }
@@ -324,19 +338,24 @@ function buildGameBoard(array) {
 
 }
 
-function reset(){
+function reset() {
     console.log("reset game");
     $(".boardGameArea").empty();
     plantLives = 12;
     zombieLives = 12;
     turn = 0;
     doThisWhenReady();
-    left=null;
-    right =null;
+    left = null;
+    right = null;
     lastCellInitiated = null;
     highLightCounter = 0;
 
 }
+
+
+function startStats() {
+    $('.zombieCounter').text(`Number of Zombies Alive: ${zombieLives}`);
+    $('.plantCounter').text(`Number of Plants Alive: ${plantLives}`);
 
 
 function kingMaker(){
