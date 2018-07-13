@@ -29,6 +29,7 @@ function doThisWhenReady() {
     applyClickHandlers();
     $("button").click(reset);
     startStats();
+    kingMaker();
 }
 
 
@@ -39,7 +40,7 @@ function applyClickHandlers() {
 
 function highLight() {
     $('.currentTurn').removeClass('currentTurn');
-    debugger;
+
     //this function highlights the squares that a clicked piece could move to. This function also calls the movement function when clicked on.
     $('.column').off('click', movement);
     lastCellInitiated = this;
@@ -330,4 +331,12 @@ function reset(){
     lastCellInitiated = null;
     highLightCounter = 0;
 
+}
+
+function kingMaker(){
+    if($(".column black plant").attr("row") === "0"){
+        $(".column black plant").attr("id", id + "plantKing");       
+    }else if($(".column black plant").attr("row") === "7"){
+        $(".column black plant").attr("id", id + "zombieKing");
+    }
 }
